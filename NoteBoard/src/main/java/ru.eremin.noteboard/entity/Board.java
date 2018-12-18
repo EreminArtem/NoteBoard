@@ -1,0 +1,50 @@
+package ru.eremin.noteboard.entity;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Objects;
+import java.util.UUID;
+
+/**
+ * @autor Artem Eremin on 16.12.2018.
+ */
+
+@Entity
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@Table(name = "board_table")
+public class Board extends AbstractEntity implements Serializable {
+
+    @Id
+    private String id = UUID.randomUUID().toString();
+
+    @Column(name = "board_name", nullable = false)
+    private String name = "";
+
+    @Column(name = "create_date", nullable = false)
+    private Date date;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Board board = (Board) o;
+        return Objects.equals(id, board.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+}
