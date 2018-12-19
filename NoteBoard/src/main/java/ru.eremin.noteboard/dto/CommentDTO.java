@@ -9,6 +9,7 @@ import ru.eremin.noteboard.entity.Note;
 import ru.eremin.noteboard.entity.User;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
@@ -24,7 +25,7 @@ public class CommentDTO extends AbstractDTO implements Serializable {
 
     private String id;
     private String text;
-    private Date date;
+    private Calendar date;
     private String authorId;
     private String noteId;
 

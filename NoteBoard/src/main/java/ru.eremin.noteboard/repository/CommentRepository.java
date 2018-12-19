@@ -19,7 +19,7 @@ public interface CommentRepository extends JpaRepository<Comment, String> {
 
     Comment findCommentById(String id);
 
-    Comment findCommentByAuthor(User author);
+    List<Comment> findCommentByAuthor(User author);
 
     List<Comment> findCommentsByNote(Note note);
 

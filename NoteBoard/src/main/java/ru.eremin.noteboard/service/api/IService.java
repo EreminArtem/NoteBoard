@@ -1,13 +1,14 @@
 package ru.eremin.noteboard.service.api;
 
 import ru.eremin.noteboard.dto.AbstractDTO;
+import ru.eremin.noteboard.entity.AbstractEntity;
 
 import java.util.List;
 
 /**
  * @autor Artem Eremin on 16.12.2018.
  */
-public interface IService<T extends AbstractDTO> {
+public interface IService<T extends AbstractDTO, E extends AbstractEntity> {
 
     List<T> finadAll();
 
@@ -24,5 +25,7 @@ public interface IService<T extends AbstractDTO> {
     void delete(final T t);
 
     void update(final T t);
+
+    E getEntity(T t);
 
 }

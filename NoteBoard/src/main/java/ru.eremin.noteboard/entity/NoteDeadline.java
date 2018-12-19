@@ -25,7 +25,7 @@ public class NoteDeadline  extends  AbstractEntity{
     @Id
     private String id = UUID.randomUUID().toString();
 
-    @Column(name = "deadline_date")
+    @Column(name = "deadline_date", nullable = false)
     private Calendar deadlineDate;
 
     @OneToOne

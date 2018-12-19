@@ -7,6 +7,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -30,7 +31,7 @@ public class Comment extends AbstractEntity implements Serializable {
     private String text;
 
     @Column(name = "comment_date")
-    private Date date;
+    private Calendar date;
 
     @ManyToOne
     private User author;
