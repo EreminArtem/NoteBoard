@@ -4,8 +4,6 @@ import ru.eremin.noteboard.dto.CommentDTO;
 import ru.eremin.noteboard.dto.NoteDTO;
 import ru.eremin.noteboard.dto.UserDTO;
 import ru.eremin.noteboard.entity.Comment;
-import ru.eremin.noteboard.entity.Note;
-import ru.eremin.noteboard.entity.User;
 
 import java.util.List;
 
