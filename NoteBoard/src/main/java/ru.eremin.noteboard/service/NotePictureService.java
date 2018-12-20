@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * @autor Artem Eremin on 19.12.2018.
  */
 
-@Service(NoteDeadlineService.NAME)
+@Service(NotePictureService.NAME)
 public class NotePictureService implements INotePictureService {
 
     public static final String NAME = "notePictureService";

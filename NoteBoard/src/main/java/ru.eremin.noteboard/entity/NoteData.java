@@ -23,7 +23,7 @@ import java.util.UUID;
 public class NoteData extends AbstractEntity implements Serializable {
 
     @Id
-    private String Id = UUID.randomUUID().toString();
+    private String id = UUID.randomUUID().toString();
 
     @Column(name = "note_data", nullable = false)
     private String data;
@@ -36,11 +36,11 @@ public class NoteData extends AbstractEntity implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         NoteData noteData = (NoteData) o;
-        return Objects.equals(Id, noteData.Id);
+        return Objects.equals(id, noteData.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Id);
+        return Objects.hash(id);
     }
 }

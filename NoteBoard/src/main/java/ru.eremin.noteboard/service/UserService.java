@@ -121,6 +121,7 @@ public class UserService implements IUserService {
         user.setId(userDTO.getId());
         user.setEmail(userDTO.getEmail());
         user.setLogin(userDTO.getLogin());
+        user.setHashPassword(userDTO.getHashPassword());
         return user;
     }
 }
