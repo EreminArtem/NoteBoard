@@ -10,6 +10,8 @@ import ru.eremin.noteboard.dto.CommentDTO;
 import ru.eremin.noteboard.dto.NoteDTO;
 import ru.eremin.noteboard.dto.UserDTO;
 import ru.eremin.noteboard.entity.Comment;
+import ru.eremin.noteboard.entity.Note;
+import ru.eremin.noteboard.entity.User;
 import ru.eremin.noteboard.repository.CommentRepository;
 import ru.eremin.noteboard.repository.NoteRepository;
 import ru.eremin.noteboard.repository.UserRepository;
@@ -69,8 +71,9 @@ public class CommentService implements ICommentService {
     @Transactional(readOnly = true)
     public List<CommentDTO> findCommentsByAuthor(@Nullable final UserDTO authorDTO) {
         if (authorDTO == null) return null;
-        final List<Comment> commentList =
-                repository.findCommentByAuthor(userRepository.findUserById(authorDTO.getId()));
+        final User user = userRepository.findUserById(authorDTO.getId());
+        if (user == null) return null;
+        final List<Comment> commentList = repository.findCommentByAuthor(user);
         if (commentList == null || commentList.isEmpty()) return null;
         return commentList.stream().map(CommentDTO::new).collect(Collectors.toList());
     }
@@ -80,8 +83,9 @@ public class CommentService implements ICommentService {
     @Transactional(readOnly = true)
     public List<CommentDTO> findCommentsByNote(@Nullable final NoteDTO noteDTO) {
         if (noteDTO == null) return null;
-        final List<Comment> commentList =
-                repository.findCommentsByNote(noteRepository.findNoteById(noteDTO.getId()));
+        final Note note = noteRepository.findNoteById(noteDTO.getId());
+        if (note == null) return null;
+        final List<Comment> commentList = repository.findCommentsByNote(note);
         if (commentList == null || commentList.isEmpty()) return null;
         return commentList.stream().map(CommentDTO::new).collect(Collectors.toList());
     }
@@ -106,7 +110,7 @@ public class CommentService implements ICommentService {
     @Override
     @Transactional
     public void deleteById(@Nullable final String id) {
-        if (id != null || !id.isEmpty()) repository.deleteById(id);
+        if (id != null && !id.isEmpty()) repository.deleteById(id);
     }
 
     @Override

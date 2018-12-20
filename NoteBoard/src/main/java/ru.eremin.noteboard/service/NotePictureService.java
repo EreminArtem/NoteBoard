@@ -94,7 +94,7 @@ public class NotePictureService implements INotePictureService {
     @Override
     @Transactional
     public void deleteById(@Nullable final String id) {
-        if (id != null || !id.isEmpty()) repository.deleteById(id);
+        if (id != null && !id.isEmpty()) repository.deleteById(id);
     }
 
     @Override

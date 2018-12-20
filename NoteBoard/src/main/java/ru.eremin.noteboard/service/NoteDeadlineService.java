@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.eremin.noteboard.dto.NoteDTO;
 import ru.eremin.noteboard.dto.NoteDeadlineDTO;
+import ru.eremin.noteboard.entity.Note;
 import ru.eremin.noteboard.entity.NoteDeadline;
 import ru.eremin.noteboard.repository.NoteDeadlineRepository;
 import ru.eremin.noteboard.repository.NoteRepository;
@@ -36,8 +37,9 @@ public class NoteDeadlineService implements INoteDeadlineService {
     @Transactional(readOnly = true)
     public NoteDeadlineDTO findNoteDeadlineByNote(@Nullable final NoteDTO noteDTO) {
         if (noteDTO == null) return null;
-        final NoteDeadline noteDeadline =
-                repository.findNoteDeadlineByNote(noteRepository.findNoteById(noteDTO.getId()));
+        final Note note = noteRepository.findNoteById(noteDTO.getId());
+        if (note == null) return null;
+        final NoteDeadline noteDeadline = repository.findNoteDeadlineByNote(note);
         return new NoteDeadlineDTO(noteDeadline);
     }
 
@@ -89,7 +91,7 @@ public class NoteDeadlineService implements INoteDeadlineService {
     @Override
     @Transactional
     public void deleteById(@Nullable final String id) {
-        if (id != null || !id.isEmpty()) repository.deleteById(id);
+        if (id != null && !id.isEmpty()) repository.deleteById(id);
     }
 
     @Override

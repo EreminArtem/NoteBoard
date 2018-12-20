@@ -65,8 +65,9 @@ public class CategoryService implements ICategoryService {
     @Transactional(readOnly = true)
     public List<CategoryDTO> findCategoriesByBoard(@Nullable final BoardDTO boardDTO) {
         if (boardDTO == null) return null;
-        final List<Category> categoryList =
-                repository.findCategoriesByBoard(boardRepository.findBoardById(boardDTO.getId()));
+        final Board board = boardRepository.findBoardById(boardDTO.getId());
+        if(board == null) return null;
+        final List<Category> categoryList = repository.findCategoriesByBoard(board);
         if (categoryList == null || categoryList.isEmpty()) return null;
         return categoryList.stream().map(CategoryDTO::new).collect(Collectors.toList());
     }
@@ -91,7 +92,7 @@ public class CategoryService implements ICategoryService {
     @Override
     @Transactional
     public void deleteById(@Nullable final String id) {
-        if (id != null || !id.isEmpty()) repository.deleteById(id);
+        if (id != null && !id.isEmpty()) repository.deleteById(id);
     }
 
     @Override
@@ -121,5 +122,4 @@ public class CategoryService implements ICategoryService {
         category.setBoard(board);
         return category;
     }
-
 }

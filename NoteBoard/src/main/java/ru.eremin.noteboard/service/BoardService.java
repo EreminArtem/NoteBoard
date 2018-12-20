@@ -75,7 +75,7 @@ public class BoardService implements IBoardService {
     @Override
     @Transactional
     public void deleteById(@Nullable final String id) {
-        if (id != null || !id.isEmpty()) repository.deleteById(id);
+        if (id != null && !id.isEmpty()) repository.deleteById(id);
     }
 
     @Override

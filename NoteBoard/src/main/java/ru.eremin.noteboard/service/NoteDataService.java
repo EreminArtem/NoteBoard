@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.eremin.noteboard.dto.NoteDTO;
 import ru.eremin.noteboard.dto.NoteDataDTO;
+import ru.eremin.noteboard.entity.Note;
 import ru.eremin.noteboard.entity.NoteData;
 import ru.eremin.noteboard.repository.NoteDataRepository;
 import ru.eremin.noteboard.repository.NoteRepository;
@@ -36,8 +37,9 @@ public class NoteDataService implements INoteDataService {
     @Transactional(readOnly = true)
     public NoteDataDTO findNodeDataByNote(@Nullable final NoteDTO noteDTO) {
         if (noteDTO == null) return null;
-        final NoteData noteData =
-                repository.findNoteDataByNote(noteRepository.findNoteById(noteDTO.getId()));
+        final Note note = noteRepository.findNoteById(noteDTO.getId());
+        if(note==null) return null;
+        final NoteData noteData = repository.findNoteDataByNote(note);
         if (noteData == null) return null;
         return new NoteDataDTO(noteData);
     }
@@ -90,7 +92,7 @@ public class NoteDataService implements INoteDataService {
     @Override
     @Transactional
     public void deleteById(@Nullable final String id) {
-        if (id != null || !id.isEmpty()) repository.deleteById(id);
+        if (id != null && !id.isEmpty()) repository.deleteById(id);
     }
 
     @Override

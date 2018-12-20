@@ -6,5 +6,6 @@ import ru.eremin.noteboard.entity.NoteType;
 /**
  * @autor Artem Eremin on 16.12.2018.
  */
+
 public interface INoteTypeService extends IService<NoteTypeDTO, NoteType> {
 }
