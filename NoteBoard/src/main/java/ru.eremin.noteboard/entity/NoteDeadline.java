@@ -19,13 +19,14 @@ import java.util.UUID;
 @Setter
 @ToString
 @NoArgsConstructor
-@Table(name = "note_table")
+@Table(name = "note_deadline_table")
 public class NoteDeadline  extends  AbstractEntity{
 
     @Id
     private String id = UUID.randomUUID().toString();
 
-    @Column(name = "deadline_date", nullable = false)
+    @Column(name = "note_deadline_date")
+    @Temporal(TemporalType.DATE)
     private Calendar deadlineDate;
 
     @OneToOne

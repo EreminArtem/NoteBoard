@@ -41,7 +41,7 @@ public class CommentService implements ICommentService {
     @Override
     @Nullable
     @Transactional(readOnly = true)
-    public List<CommentDTO> finadAll() {
+    public List<CommentDTO> findAll() {
         final List<Comment> commentList = repository.findAll();
         if (commentList == null || commentList.isEmpty()) return null;
         return commentList.stream().map(CommentDTO::new).collect(Collectors.toList());

@@ -23,6 +23,4 @@ public interface NoteRepository extends JpaRepository<Note, String> {
 
     List<Note> findNotesByBoard(Board board);
 
-    List<Note> findNotesByType(NoteType type);
-
 }

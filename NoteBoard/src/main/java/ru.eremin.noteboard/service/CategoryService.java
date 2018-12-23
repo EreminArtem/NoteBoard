@@ -35,7 +35,7 @@ public class CategoryService implements ICategoryService {
     @Override
     @Nullable
     @Transactional(readOnly = true)
-    public List<CategoryDTO> finadAll() {
+    public List<CategoryDTO> findAll() {
         final List<Category> categoryList = repository.findAll();
         if (categoryList == null || categoryList.isEmpty()) return null;
         return categoryList.stream().map(CategoryDTO::new).collect(Collectors.toList());
@@ -66,7 +66,7 @@ public class CategoryService implements ICategoryService {
     public List<CategoryDTO> findCategoriesByBoard(@Nullable final BoardDTO boardDTO) {
         if (boardDTO == null) return null;
         final Board board = boardRepository.findBoardById(boardDTO.getId());
-        if(board == null) return null;
+        if (board == null) return null;
         final List<Category> categoryList = repository.findCategoriesByBoard(board);
         if (categoryList == null || categoryList.isEmpty()) return null;
         return categoryList.stream().map(CategoryDTO::new).collect(Collectors.toList());
@@ -119,7 +119,7 @@ public class CategoryService implements ICategoryService {
         final Board board = boardRepository.findBoardById(categoryDTO.getBoardId());
         category.setId(categoryDTO.getId());
         category.setName(categoryDTO.getName());
-        category.setBoard(board);
+        if (board != null) category.setBoard(board);
         return category;
     }
 }

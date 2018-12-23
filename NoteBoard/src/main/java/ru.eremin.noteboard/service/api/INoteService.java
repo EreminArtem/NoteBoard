@@ -17,6 +17,4 @@ public interface INoteService extends IService<NoteDTO, Note> {
 
     List<NoteDTO> findNotesByBoard(final BoardDTO board);
 
-    List<NoteDTO> findNotesByType(final NoteTypeDTO type);
-
 }

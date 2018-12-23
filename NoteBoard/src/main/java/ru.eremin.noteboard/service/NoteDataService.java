@@ -38,7 +38,7 @@ public class NoteDataService implements INoteDataService {
     public NoteDataDTO findNodeDataByNote(@Nullable final NoteDTO noteDTO) {
         if (noteDTO == null) return null;
         final Note note = noteRepository.findNoteById(noteDTO.getId());
-        if(note==null) return null;
+        if (note == null) return null;
         final NoteData noteData = repository.findNoteDataByNote(note);
         if (noteData == null) return null;
         return new NoteDataDTO(noteData);
@@ -47,7 +47,7 @@ public class NoteDataService implements INoteDataService {
     @Override
     @Nullable
     @Transactional(readOnly = true)
-    public List<NoteDataDTO> finadAll() {
+    public List<NoteDataDTO> findAll() {
         final List<NoteData> noteDataList = repository.findAll();
         if (noteDataList == null || noteDataList.isEmpty()) return null;
         return noteDataList.stream().map(NoteDataDTO::new).collect(Collectors.toList());
@@ -118,7 +118,7 @@ public class NoteDataService implements INoteDataService {
         final NoteData noteData = new NoteData();
         noteData.setId(noteDataDTO.getId());
         noteData.setData(noteDataDTO.getData());
-        noteData.setNote(noteRepository.findNoteById(noteDataDTO.getId()));
+        noteData.setNote(noteRepository.findNoteById(noteDataDTO.getNoteId()));
         return noteData;
     }
 }

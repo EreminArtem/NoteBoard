@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface IService<T extends AbstractDTO, E extends AbstractEntity> {
 
-    List<T> finadAll();
+    List<T> findAll();
 
     List<T> findAll(final int page, final int size);
 

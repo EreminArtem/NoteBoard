@@ -5,11 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -32,8 +30,9 @@ public class Board extends AbstractEntity implements Serializable {
     @Column(name = "board_name", nullable = false)
     private String name = "";
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "create_date", nullable = false)
-    private Date date;
+    private Calendar date;
 
     @Override
     public boolean equals(Object o) {

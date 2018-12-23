@@ -49,7 +49,7 @@ public class UserService implements IUserService {
     @Override
     @Nullable
     @Transactional(readOnly = true)
-    public List<UserDTO> finadAll() {
+    public List<UserDTO> findAll() {
         final List<User> userList = repository.findAll();
         if (userList == null || userList.isEmpty()) return null;
         return userList.stream().map(UserDTO::new).collect(Collectors.toList());
@@ -94,7 +94,7 @@ public class UserService implements IUserService {
     @Override
     @Transactional
     public void deleteById(@Nullable final String id) {
-        if (id != null && id.isEmpty()) repository.deleteById(id);
+        if (id != null && !id.isEmpty()) repository.deleteById(id);
     }
 
     @Override

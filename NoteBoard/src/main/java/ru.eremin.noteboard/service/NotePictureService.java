@@ -49,7 +49,7 @@ public class NotePictureService implements INotePictureService {
     @Override
     @Nullable
     @Transactional(readOnly = true)
-    public List<NotePictureDTO> finadAll() {
+    public List<NotePictureDTO> findAll() {
         final List<NotePicture> notePictures = repository.findAll();
         if (notePictures == null || notePictures.isEmpty()) return null;
         return notePictures.stream().map(NotePictureDTO::new).collect(Collectors.toList());

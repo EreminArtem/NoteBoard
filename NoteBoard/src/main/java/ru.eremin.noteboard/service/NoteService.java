@@ -38,9 +38,6 @@ public class NoteService implements INoteService {
     private BoardRepository boardRepository;
 
     @Autowired
-    private NoteTypeRepository noteTypeRepository;
-
-    @Autowired
     private NotePictureRepository notePictureRepository;
 
     @Autowired
@@ -88,19 +85,7 @@ public class NoteService implements INoteService {
     @Override
     @Nullable
     @Transactional(readOnly = true)
-    public List<NoteDTO> findNotesByType(@Nullable final NoteTypeDTO typeDTO) {
-        if (typeDTO == null) return null;
-        final NoteType noteType = noteTypeRepository.findNoteTypeById(typeDTO.getId());
-        if (noteType == null) return null;
-        final List<Note> noteList = repository.findNotesByType(noteType);
-        if (noteList == null || noteList.isEmpty()) return null;
-        return noteList.stream().map(NoteDTO::new).collect(Collectors.toList());
-    }
-
-    @Override
-    @Nullable
-    @Transactional(readOnly = true)
-    public List<NoteDTO> finadAll() {
+    public List<NoteDTO> findAll() {
         final List<Note> noteList = repository.findAll();
         if (noteList == null || noteList.isEmpty()) return null;
         return noteList.stream().map(NoteDTO::new).collect(Collectors.toList());
@@ -138,8 +123,7 @@ public class NoteService implements INoteService {
     @Transactional
     public void merge(@Nullable final NoteDTO noteDTO) {
         if (noteDTO == null) return;
-        final Note note = repository.findNoteById(noteDTO.getId());
-        if (note == null) return;
+        final Note note = getEntity(noteDTO);
         repository.save(note);
     }
 
@@ -174,9 +158,10 @@ public class NoteService implements INoteService {
         note.setData(noteDataRepository.findNoteDataById(noteDTO.getDataId()));
         note.setCategory(categoryRepository.findCategoryById(noteDTO.getCategotyId()));
         note.setBoard(boardRepository.findBoardById(noteDTO.getBoardId()));
-        note.setType(noteTypeRepository.findNoteTypeById(noteDTO.getTypeId()));
+        note.setType(noteDTO.getType());
         note.setPicture(notePictureRepository.findNotePictureById(noteDTO.getPictureId()));
         note.setDeadline(noteDeadlineRepository.findNoteDeadlineById(noteDTO.getNoteDeadlineId()));
+        note.setStatus(noteDTO.getStatus());
         note.setComments(commentRepository.findCommentsByNote(note));
         return note;
     }

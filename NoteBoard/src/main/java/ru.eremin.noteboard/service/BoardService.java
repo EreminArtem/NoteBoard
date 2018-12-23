@@ -30,7 +30,7 @@ public class BoardService implements IBoardService {
     @Override
     @Nullable
     @Transactional(readOnly = true)
-    public List<BoardDTO> finadAll() {
+    public List<BoardDTO> findAll() {
         final List<Board> boardList = repository.findAll();
         if (boardList == null || boardList.isEmpty()) return null;
         return boardList.stream().map(BoardDTO::new).collect(Collectors.toList());

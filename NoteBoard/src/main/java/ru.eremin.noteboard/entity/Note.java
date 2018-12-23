@@ -26,6 +26,10 @@ public class Note extends AbstractEntity implements Serializable {
     @Id
     private String id = UUID.randomUUID().toString();
 
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "note_status")
+    private NoteStatus status;
+
     @ManyToOne
     private User author;
 
@@ -38,7 +42,7 @@ public class Note extends AbstractEntity implements Serializable {
     @ManyToOne
     private Board board;
 
-    @ManyToOne
+    @Column(name = "note_type")
     private NoteType type;
 
     @ManyToOne

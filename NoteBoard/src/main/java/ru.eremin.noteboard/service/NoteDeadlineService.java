@@ -46,7 +46,7 @@ public class NoteDeadlineService implements INoteDeadlineService {
     @Override
     @Nullable
     @Transactional(readOnly = true)
-    public List<NoteDeadlineDTO> finadAll() {
+    public List<NoteDeadlineDTO> findAll() {
         final List<NoteDeadline> noteDeadlines = repository.findAll();
         if (noteDeadlines == null || noteDeadlines.isEmpty()) return null;
         return noteDeadlines.stream().map(NoteDeadlineDTO::new).collect(Collectors.toList());

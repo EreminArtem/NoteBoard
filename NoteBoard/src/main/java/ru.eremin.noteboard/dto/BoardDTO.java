@@ -7,6 +7,7 @@ import lombok.ToString;
 import ru.eremin.noteboard.entity.Board;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
@@ -22,7 +23,7 @@ public class BoardDTO extends AbstractDTO implements Serializable {
 
     private String id;
     private String name;
-    private Date date;
+    private Calendar date;
 
     public BoardDTO(final Board board) {
         if(board == null) return;

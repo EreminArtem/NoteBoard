@@ -28,7 +28,7 @@ public class NoteData extends AbstractEntity implements Serializable {
     @Column(name = "note_data", nullable = false)
     private String data;
 
-    @OneToOne
+    @OneToOne (cascade = CascadeType.ALL)
     private Note note;
 
     @Override
