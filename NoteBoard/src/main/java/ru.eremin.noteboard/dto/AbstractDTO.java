@@ -14,9 +14,4 @@ public abstract class AbstractDTO {
 
     public abstract String toString();
 
-
-//    public abstract void fromEntity(T entity);
-//
-//    public abstract T toEntity();
-
 }
