@@ -35,20 +35,20 @@ public class NoteDTO extends AbstractDTO implements Serializable {
     private List<String> commentsId;
 
     public NoteDTO(final Note note) {
-        if(note == null) return;
+        if (note == null) return;
         this.id = note.getId();
-        this.status = note.getStatus();
-        this.type = note.getType();
-        this.authorId = note.getAuthor().getId();
-        this.dataId = note.getData().getId();
-        this.categotyId = note.getCategory().getId();
-        this.boardId = note.getBoard().getId();
-        this.pictureId = note.getPicture().getId();
-        this.noteDeadlineId = note.getDeadline().getId();
+        if (note.getStatus() != null) this.status = note.getStatus();
+        if (note.getType() != null) this.type = note.getType();
+        if (note.getAuthor() != null) this.authorId = note.getAuthor().getId();
+        if (note.getData() != null) this.dataId = note.getData().getId();
+        if (note.getCategory() != null) this.categotyId = note.getCategory().getId();
+        if (note.getBoard() != null) this.boardId = note.getBoard().getId();
+        if (note.getPicture() != null) this.pictureId = note.getPicture().getId();
+        if (note.getDeadline() != null) this.noteDeadlineId = note.getDeadline().getId();
         final List<Comment> comments = note.getComments();
-        if(comments != null && !comments.isEmpty()){
+        if (comments != null && !comments.isEmpty()) {
             this.commentsId = new ArrayList<>();
-            for (final Comment comment:comments) {
+            for (final Comment comment : comments) {
                 commentsId.add(comment.getId());
             }
         }

@@ -1,4 +1,4 @@
-package ru.eremin.noteboard.entity;
+package ru.eremin.noteboard.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +36,7 @@ public class NoteREST {
         return noteDTOList;
     }
 
-    @GetMapping(value = "getAll", produces = JSON)
+    @GetMapping(value = "getAllLimit", produces = JSON)
     public List<NoteDTO> getAll(@RequestParam(value = "page") final int page, @RequestParam(value = "size") final int size) {
         final List<NoteDTO> noteDTOList = noteService.findAll(page, size);
         if (noteDTOList == null || noteDTOList.isEmpty()) return null;

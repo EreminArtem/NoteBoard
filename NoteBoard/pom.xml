@@ -27,7 +27,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <test.groups>ru.eremin.noteboard.api.TestData</test.groups>
+                <test.groups>ru.eremin.noteboard.api.TestUnit</test.groups>
             </properties>
         </profile>
         <profile>

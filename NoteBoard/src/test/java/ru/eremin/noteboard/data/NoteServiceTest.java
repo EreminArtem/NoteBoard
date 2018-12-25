@@ -29,7 +29,6 @@ import static org.junit.Assert.assertNotEquals;
  */
 
 @RunWith(OrderedRunner.class)
-@Category(TestData.class)
 public class NoteServiceTest {
     private static ApplicationContext context;
     private static INoteService noteService;
@@ -102,6 +101,7 @@ public class NoteServiceTest {
 
     @Test
     @Order(order = 1)
+    @Category(TestData.class)
     public void insertTest() {
         userService.insert(userDTO);
         boardService.insert(board);
@@ -113,6 +113,7 @@ public class NoteServiceTest {
 
     @Test
     @Order(order = 2)
+    @Category(TestData.class)
     public void findTest() {
         assertNotNull(userService.findAll());
         assertNotNull(boardService.findAll());
@@ -124,6 +125,7 @@ public class NoteServiceTest {
 
     @Test
     @Order(order = 3)
+    @Category(TestData.class)
     public void mergeTest() {
         assertNotEquals(noteDTO.getType(), NoteType.IMPORTANT);
         noteDTO.setType(NoteType.IMPORTANT);
