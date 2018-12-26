@@ -12,6 +12,7 @@ import ru.eremin.noteboard.repository.UserRepository;
 import ru.eremin.noteboard.service.api.IUserService;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -72,6 +73,18 @@ public class UserService implements IUserService {
         final User user = repository.findUserById(id);
         if (user == null) return null;
         return new UserDTO(user);
+    }
+
+    @Override
+    @Transactional
+    public void initUser(@NotNull final String login, @NotNull final String password, @NotNull final String email) {
+        if(findAll() != null || !findAll().isEmpty()) return;
+        final User user = new User();
+        user.setId(UUID.randomUUID().toString());
+        user.setLogin(login);
+        user.setEmail(email);
+        user.setHashPassword(password);
+        repository.save(user);
     }
 
     @Override
