@@ -9,6 +9,8 @@ import ru.eremin.noteboard.entity.User;
 
 public interface IUserService extends IService<UserDTO, User> {
 
+    void initUser(final String login, final String password, final String email);
+
     UserDTO findUserByEmail(final String email);
 
     UserDTO findUserByLogin(final String login);
