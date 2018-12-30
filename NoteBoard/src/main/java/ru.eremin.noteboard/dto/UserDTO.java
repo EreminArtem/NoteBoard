@@ -4,9 +4,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import ru.eremin.noteboard.entity.Role;
+import ru.eremin.noteboard.entity.RoleType;
 import ru.eremin.noteboard.entity.User;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -23,6 +27,7 @@ public class UserDTO extends AbstractDTO implements Serializable {
     private String login;
     private String hashPassword;
     private String email;
+    private List<RoleType> roles;
 
     public UserDTO(final User user) {
         if (user == null) return;
@@ -30,6 +35,12 @@ public class UserDTO extends AbstractDTO implements Serializable {
         this.login = user.getLogin();
         this.hashPassword = user.getHashPassword();
         this.email = user.getEmail();
+        this.roles = new ArrayList<>();
+        final List<Role> roleList = user.getRoleList();
+        if (roleList == null || roleList.isEmpty()) return;
+        for (final Role role : roleList) {
+            if (role != null) this.roles.add(role.getRoleType());
+        }
     }
 
     @Override

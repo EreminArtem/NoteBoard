@@ -4,6 +4,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+import ru.eremin.noteboard.entity.RoleType;
 import ru.eremin.noteboard.service.api.IUserService;
 
 /**
@@ -22,6 +23,6 @@ public class Bootstrap implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        userService.initUser("admin", passwordEncoder.encode("pass"), "admin@email");
+        userService.initUser("admin", passwordEncoder.encode("pass"), "admin@email", RoleType.USER);
     }
 }

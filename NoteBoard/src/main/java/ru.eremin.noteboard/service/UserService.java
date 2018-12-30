@@ -7,10 +7,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.eremin.noteboard.dto.UserDTO;
+import ru.eremin.noteboard.entity.Role;
+import ru.eremin.noteboard.entity.RoleType;
 import ru.eremin.noteboard.entity.User;
 import ru.eremin.noteboard.repository.UserRepository;
 import ru.eremin.noteboard.service.api.IUserService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -77,13 +80,19 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional
-    public void initUser(@NotNull final String login, @NotNull final String password, @NotNull final String email) {
-        if (findAll() != null || !findAll().isEmpty()) return;
+    public void initUser(@NotNull final String login,
+                         @NotNull final String password,
+                         @NotNull final String email,
+                         @NotNull final RoleType roleType) {
+        if (findAll() != null) return;
         final User user = new User();
         user.setId(UUID.randomUUID().toString());
         user.setLogin(login);
         user.setEmail(email);
         user.setHashPassword(password);
+        final List<Role> roles = new ArrayList<>();
+        roles.add(new Role(UUID.randomUUID().toString(), user, roleType));
+        user.setRoleList(roles);
         repository.save(user);
     }
 

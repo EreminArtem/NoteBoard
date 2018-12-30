@@ -131,6 +131,11 @@ public class NoteServiceTest {
         noteService.merge(noteDTO);
         assertEquals(noteService.findById(noteDTO.getId()).getType(), NoteType.IMPORTANT);
     }
+    @Test
+    @Order(order = 4)
+    public void roleTest(){
+        assertEquals(RoleType.USER, userService.findUserByLogin("admin").getRoles().get(0));
+    }
 
     @Test
     @Order(order = 4)
