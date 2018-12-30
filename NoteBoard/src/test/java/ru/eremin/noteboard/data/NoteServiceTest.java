@@ -7,7 +7,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ru.eremin.noteboard.Order;
 import ru.eremin.noteboard.OrderedRunner;
-import ru.eremin.noteboard.Utilities;
 import ru.eremin.noteboard.api.TestData;
 import ru.eremin.noteboard.config.AppConfiguration;
 import ru.eremin.noteboard.dto.*;
@@ -73,7 +72,7 @@ public class NoteServiceTest {
 
         userDTO.setId(UUID.randomUUID().toString());
         userDTO.setLogin("testUser");
-        userDTO.setHashPassword(Utilities.getHash("testpass"));
+        userDTO.setHashPassword("testpass");
         userDTO.setEmail("@test");
 
 

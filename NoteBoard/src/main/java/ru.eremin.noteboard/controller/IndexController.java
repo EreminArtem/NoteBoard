@@ -5,7 +5,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.eremin.noteboard.dto.UserDTO;
-import ru.eremin.noteboard.entity.User;
 import ru.eremin.noteboard.service.api.IUserService;
 
 import javax.servlet.http.HttpServletRequest;

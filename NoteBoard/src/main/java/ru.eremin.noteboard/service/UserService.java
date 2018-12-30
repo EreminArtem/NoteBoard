@@ -78,7 +78,7 @@ public class UserService implements IUserService {
     @Override
     @Transactional
     public void initUser(@NotNull final String login, @NotNull final String password, @NotNull final String email) {
-        if(findAll() != null || !findAll().isEmpty()) return;
+        if (findAll() != null || !findAll().isEmpty()) return;
         final User user = new User();
         user.setId(UUID.randomUUID().toString());
         user.setLogin(login);
