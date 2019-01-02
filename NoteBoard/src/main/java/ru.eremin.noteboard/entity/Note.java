@@ -42,6 +42,7 @@ public class Note extends AbstractEntity implements Serializable {
     @ManyToOne
     private Board board;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "note_type")
     private NoteType type;
 
@@ -51,7 +52,7 @@ public class Note extends AbstractEntity implements Serializable {
     @OneToOne (cascade = CascadeType.ALL)
     private NoteDeadline deadline;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "note", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
 
     @Override
