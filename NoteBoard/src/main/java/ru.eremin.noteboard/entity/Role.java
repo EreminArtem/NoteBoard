@@ -16,7 +16,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@ToString
+//@ToString
 @NoArgsConstructor
 @Table(name = "role_table")
 public class Role extends AbstractEntity {
@@ -49,5 +49,10 @@ public class Role extends AbstractEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, roleType);
+    }
+
+    @Override
+    public String toString() {
+        return roleType.name();
     }
 }

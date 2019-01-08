@@ -23,23 +23,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService service;
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-       auth.userDetailsService(service).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(service).passwordEncoder(passwordEncoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest()
-                .hasAnyRole(RoleType.USER.name(), RoleType.ADMIN.name())
+        http
+                .authorizeRequests().antMatchers("/").permitAll()
+                .antMatchers("/**")
+                    .hasAnyRole(RoleType.USER.name(), RoleType.ADMIN.name())
                 .and()
-                .formLogin()
+                    .formLogin()
+                    .loginPage("/login")
+                    .permitAll()
+                    .defaultSuccessUrl("/boards")
                 .and()
-                .logout().permitAll().logoutSuccessUrl("/login")
-                .and().csrf().disable();
+                    .logout().permitAll()
+                .and()
+                    .csrf().disable();
     }
 }

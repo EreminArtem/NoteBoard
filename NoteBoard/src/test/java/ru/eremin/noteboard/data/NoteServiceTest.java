@@ -25,7 +25,7 @@ import static org.junit.Assert.assertNotEquals;
  * @autor Artem Eremin on 20.12.2018.
  */
 
-@Category(TestData.class)
+
 @RunWith(OrderedRunner.class)
 public class NoteServiceTest {
     private static ApplicationContext context;
@@ -107,6 +107,7 @@ public class NoteServiceTest {
 
     @Test
     @Order(order = 1)
+    @Category(TestData.class)
     public void insertTest() {
         userService.insert(userDTO);
         boardService.insert(board);
@@ -118,6 +119,7 @@ public class NoteServiceTest {
 
     @Test
     @Order(order = 2)
+    @Category(TestData.class)
     public void findTest() {
         assertNotNull(userService.findAll());
         assertNotNull(boardService.findAll());
@@ -129,6 +131,7 @@ public class NoteServiceTest {
 
     @Test
     @Order(order = 3)
+    @Category(TestData.class)
     public void mergeTest() {
         assertNotEquals(noteDTO.getType(), NoteType.IMPORTANT);
         noteDTO.setType(NoteType.IMPORTANT);
@@ -138,12 +141,14 @@ public class NoteServiceTest {
 
     @Test
     @Order(order = 4)
+    @Category(TestData.class)
     public void roleTest() {
         assertEquals(RoleType.USER, userService.findUserByLogin("admin").getRoles().get(0));
     }
 
     @Test
     @Order(order = 5)
+    @Category(TestData.class)
     public void commentTest() {
         final CommentDTO commentDTO = new CommentDTO();
         commentDTO.setId(UUID.randomUUID().toString());
@@ -159,6 +164,7 @@ public class NoteServiceTest {
 
     @Test
     @Order(order = 6)
+    @Category(TestData.class)
     public void pictureTest() {
         pictureService.insert(notePictureDTO);
         noteDTO.setPictureId(notePictureDTO.getId());
@@ -166,6 +172,7 @@ public class NoteServiceTest {
     }
     @Test
     @Order(order = 7)
+    @Category(TestData.class)
     public void deadlineTest(){
         Calendar calendar = new GregorianCalendar(2019, 0, 10);
         assertEquals(noteDeadlineService.findById(noteDTO.getNoteDeadlineId()).getDeadlineDate().getTime(), calendar.getTime());
@@ -173,6 +180,7 @@ public class NoteServiceTest {
 
     @Test
     @Order(order = 8)
+    @Category(TestData.class)
     public void updateTest(){
         noteDTO.setType(NoteType.NORMAL);
         noteService.update(noteDTO);
@@ -181,6 +189,7 @@ public class NoteServiceTest {
 
     @Test
     @Order(order = 8)
+    @Category(TestData.class)
     public void deleteTest() {
 //        noteService.deleteById(noteDTO.getId());
 //        categoryService.deleteById(categoryDTO.getId());

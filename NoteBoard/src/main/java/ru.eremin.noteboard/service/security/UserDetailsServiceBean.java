@@ -1,4 +1,4 @@
-package ru.eremin.noteboard.service;
+package ru.eremin.noteboard.service.security;
 
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +32,12 @@ public class UserDetailsServiceBean implements UserDetailsService {
         org.springframework.security.core.userdetails.User.UserBuilder builder = null;
         builder = org.springframework.security.core.userdetails.User.withUsername(login);
         builder.password(user.getHashPassword());
-        final List<Role> userRoles = new ArrayList<>();
+        final List<Role> userRoles = user.getRoleList();
         final List<String> roles = new ArrayList<>();
         for (final Role role : userRoles) roles.add(role.toString());
         builder.roles(roles.toArray(new String[]{}));
-        return builder.build();
+        UserDetails userDetails = builder.build();
+        return userDetails;
     }
 
     private User findByLogin(@Nullable final String login) {

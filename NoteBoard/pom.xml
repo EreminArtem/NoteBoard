@@ -67,6 +67,12 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
             <version>${spring.version}</version>
         </dependency>
@@ -75,7 +81,6 @@
             <artifactId>spring-security-config</artifactId>
             <version>${spring.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
@@ -136,6 +141,7 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
+
         <!-- json -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
