@@ -14,9 +14,7 @@ import ru.eremin.noteboard.entity.*;
 import ru.eremin.noteboard.service.*;
 import ru.eremin.noteboard.service.api.*;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertNull;
@@ -27,6 +25,7 @@ import static org.junit.Assert.assertNotEquals;
  * @autor Artem Eremin on 20.12.2018.
  */
 
+
 @RunWith(OrderedRunner.class)
 public class NoteServiceTest {
     private static ApplicationContext context;
@@ -36,12 +35,15 @@ public class NoteServiceTest {
     private static ICategoryService categoryService;
     private static INoteDataService noteDataService;
     private static INoteDeadlineService noteDeadlineService;
+    private static ICommentService commentService;
+    private static INotePictureService pictureService;
     private static UserDTO userDTO;
     private static BoardDTO board;
     private static NoteDTO noteDTO;
     private static NoteDataDTO noteDataDTO;
     private static CategoryDTO categoryDTO;
     private static NoteDeadlineDTO noteDeadline;
+    private static NotePictureDTO notePictureDTO;
 
 
     @BeforeClass
@@ -53,6 +55,8 @@ public class NoteServiceTest {
         categoryService = context.getBean(CategoryService.NAME, ICategoryService.class);
         noteDataService = context.getBean(NoteDataService.NAME, INoteDataService.class);
         noteDeadlineService = context.getBean(NoteDeadlineService.NAME, INoteDeadlineService.class);
+        commentService = context.getBean(CommentService.NAME, ICommentService.class);
+        pictureService = context.getBean(NotePictureService.NAME, INotePictureService.class);
 
         userDTO = new UserDTO();
         board = new BoardDTO();
@@ -84,9 +88,7 @@ public class NoteServiceTest {
 
         noteDeadline.setId(UUID.randomUUID().toString());
         noteDeadline.setDeadlineDate(
-                new Calendar.Builder()
-                        .setDate(2018, 12, 31)
-                        .build());
+                new GregorianCalendar(2019,0,10));
         noteDeadline.setNoteId(noteDTO.getId());
 
         noteDTO.setNoteDeadlineId(noteDeadline.getId());
@@ -96,6 +98,11 @@ public class NoteServiceTest {
         noteDataDTO.setNoteId(noteDTO.getId());
 
         noteDTO.setDataId(noteDataDTO.getId());
+
+        notePictureDTO = new NotePictureDTO();
+        notePictureDTO.setId(UUID.randomUUID().toString());
+        notePictureDTO.setPath("../test/testPic");
+        notePictureDTO.setPictureName("testPic");
     }
 
     @Test
@@ -107,7 +114,7 @@ public class NoteServiceTest {
         categoryService.insert(categoryDTO);
         noteDataService.insert(noteDataDTO);
         noteDeadlineService.insert(noteDeadline);
-        noteService.insert(noteDTO);
+        noteService.merge(noteDTO);
     }
 
     @Test
@@ -134,16 +141,74 @@ public class NoteServiceTest {
 
     @Test
     @Order(order = 4)
+    @Category(TestData.class)
+    public void roleTest() {
+        assertEquals(RoleType.USER, userService.findUserByLogin("admin").getRoles().get(0));
+    }
+
+    @Test
+    @Order(order = 5)
+    @Category(TestData.class)
+    public void commentTest() {
+        final CommentDTO commentDTO = new CommentDTO();
+        commentDTO.setId(UUID.randomUUID().toString());
+        commentDTO.setAuthorId(userDTO.getId());
+        commentDTO.setNoteId(noteDTO.getId());
+        commentDTO.setDate(Calendar.getInstance());
+        commentDTO.setText("testcomment");
+        commentService.insert(commentDTO);
+        final List<CommentDTO> comments = commentService.findCommentsByNote(noteDTO);
+        assertNotNull(comments);
+        assertEquals("testcomment", comments.get(0).getText());
+    }
+
+    @Test
+    @Order(order = 6)
+    @Category(TestData.class)
+    public void pictureTest() {
+        pictureService.insert(notePictureDTO);
+        noteDTO.setPictureId(notePictureDTO.getId());
+        noteService.merge(noteDTO);
+    }
+    @Test
+    @Order(order = 7)
+    @Category(TestData.class)
+    public void deadlineTest(){
+        Calendar calendar = new GregorianCalendar(2019, 0, 10);
+        assertEquals(noteDeadlineService.findById(noteDTO.getNoteDeadlineId()).getDeadlineDate().getTime(), calendar.getTime());
+    }
+
+    @Test
+    @Order(order = 8)
+    @Category(TestData.class)
+    public void updateTest(){
+        noteDTO.setType(NoteType.NORMAL);
+        noteService.update(noteDTO);
+        assertEquals(NoteType.NORMAL, noteService.findById(noteDTO.getId()).getType());
+    }
+
+    @Test
+    @Order(order = 8)
+    @Category(TestData.class)
     public void deleteTest() {
-        noteService.deleteById(noteDTO.getId());
-        categoryService.deleteById(categoryDTO.getId());
-        boardService.deleteById(board.getId());
-        userService.deleteById(userDTO.getId());
+//        noteService.deleteById(noteDTO.getId());
+//        categoryService.deleteById(categoryDTO.getId());
+//        boardService.deleteById(board.getId());
+//        userService.deleteById(userDTO.getId());
+//        pictureService.deleteById(notePictureDTO.getId());
+
+        noteService.delete(noteDTO);
+        categoryService.delete(categoryDTO);
+        boardService.delete(board);
+        userService.delete(userDTO);
+        pictureService.delete(notePictureDTO);
+
         assertNull(noteService.findById(noteDTO.getId()));
         assertNull(categoryService.findById(categoryDTO.getId()));
         assertNull(boardService.findById(board.getId()));
         assertNull(userService.findById(userDTO.getId()));
         assertNull(noteDataService.findById(noteDataDTO.getId()));
         assertNull(noteDeadlineService.findById(noteDeadline.getId()));
+        assertNull(pictureService.findById(notePictureDTO.getId()));
     }
 }

@@ -5,11 +5,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -20,7 +19,7 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@ToString
+//@ToString
 @NoArgsConstructor
 @Table(name = "user_table")
 public class User extends AbstractEntity implements Serializable {
@@ -37,6 +36,9 @@ public class User extends AbstractEntity implements Serializable {
     @Column(name = "user_email", nullable = false, unique = true)
     private String email;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Role> roleList = new ArrayList<>();
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -48,5 +50,12 @@ public class User extends AbstractEntity implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "login='" + login + '\'' +
+                '}';
     }
 }

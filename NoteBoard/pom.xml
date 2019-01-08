@@ -17,7 +17,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring.version>5.0.8.RELEASE</spring.version>
-        <hibernate.version>5.3.0.Final</hibernate.version>
+        <hibernate.version>5.3.1.Final</hibernate.version>
     </properties>
 
     <profiles>
@@ -67,6 +67,12 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
             <version>${spring.version}</version>
         </dependency>
@@ -75,7 +81,6 @@
             <artifactId>spring-security-config</artifactId>
             <version>${spring.version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
@@ -136,6 +141,7 @@
             <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
+
         <!-- json -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
