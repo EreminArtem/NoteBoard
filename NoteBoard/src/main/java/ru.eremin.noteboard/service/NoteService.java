@@ -85,6 +85,16 @@ public class NoteService implements INoteService {
     @Override
     @Nullable
     @Transactional(readOnly = true)
+    public List<NoteDTO> findNotesByBoardId(@Nullable final String id) {
+        if (id == null || id.isEmpty()) return null;
+        final List<Note> noteList = repository.findNotesByBoardId(id);
+        if (noteList == null || noteList.isEmpty()) return null;
+        return noteList.stream().map(NoteDTO::new).collect(Collectors.toList());
+    }
+
+    @Override
+    @Nullable
+    @Transactional(readOnly = true)
     public List<NoteDTO> findAll() {
         final List<Note> noteList = repository.findAll();
         if (noteList == null || noteList.isEmpty()) return null;

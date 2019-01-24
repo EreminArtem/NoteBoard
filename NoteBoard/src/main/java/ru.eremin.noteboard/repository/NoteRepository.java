@@ -17,6 +17,8 @@ public interface NoteRepository extends JpaRepository<Note, String> {
 
     Note findNoteById(String id);
 
+    List<Note> findNotesByBoardId(String id);
+
     List<Note> findNotesByAuthor(User author);
 
     List<Note> findNotesByCategory(Category category);

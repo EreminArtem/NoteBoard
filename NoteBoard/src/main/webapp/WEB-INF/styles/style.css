@@ -1,0 +1,25 @@
+.boardContainer {
+    width: 300px;
+    height: 500px;
+    float: left;
+    background-color: #b3b3b3;
+    border: 1px black solid;
+}
+
+.boardName {
+    margin: 10px;
+    background-color: aquamarine;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.boardDate {
+    margin: 10px;
+    background-color: rgb(248, 200, 172);
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -190,6 +190,7 @@ public class NoteServiceTest {
     @Test
     @Order(order = 8)
     @Category(TestData.class)
+    @Ignore
     public void deleteTest() {
 //        noteService.deleteById(noteDTO.getId());
 //        categoryService.deleteById(categoryDTO.getId());

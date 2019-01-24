@@ -11,6 +11,8 @@ import java.util.List;
 
 public interface INoteService extends IService<NoteDTO, Note> {
 
+    List<NoteDTO> findNotesByBoardId(final String id);
+
     List<NoteDTO> findNotesByAuthor(final UserDTO author);
 
     List<NoteDTO> findNotesByCategory(final CategoryDTO category);
